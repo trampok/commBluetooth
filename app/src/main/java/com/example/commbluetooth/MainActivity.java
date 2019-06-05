@@ -3,6 +3,7 @@ package com.example.commbluetooth;
 import android.Manifest;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     final static int BT_ACTIVATION_REQUEST_CODE = 0;
     final static int BT_ACTIVATION = 0;
+    private static final int BT_CONNECT_CODE = 42;
 
     public BluetoothAdapter mBluetoothAdapter;
 
@@ -63,14 +65,20 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-   /* private void onBluetoothConfigRequest(boolean postActivationCall) {
+   private void onBluetoothConfigRequest(boolean postActivationCall) {
         Intent BTactivation,BTConnect;
 
         if(!mBluetoothAdapter.isEnabled()){
-            if(!postActivationCall)
+            if(!postActivationCall){
+                BTactivation= new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(BTactivation, BT_ACTIVATION_REQUEST_CODE);
+            }
+        } else {
+            BTConnect = new Intent(  this, BTConnectActivity.class);
+            startActivityForResult(BTConnect, BT_CONNECT_CODE);
         }
 
-    }*/
+    }
 
     private int BluetoothRight() {
         if (BluetoothAdapter.getDefaultAdapter() == null) {
