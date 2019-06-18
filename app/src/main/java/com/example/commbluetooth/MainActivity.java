@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "No Bluetooth adapter", Toast.LENGTH_LONG).show();
                         break;
                     case PERMISSIONS_GRANTED:
-                        //onBluetoothConfigRequest(false);
+                        onBluetoothConfigRequest(true);
                         break;
-                    case USER_REQUEST:
+                    //case USER_REQUEST:
                 }
         }
         return true;
