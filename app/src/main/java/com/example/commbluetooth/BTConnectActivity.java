@@ -21,13 +21,16 @@ public class BTConnectActivity extends AppCompatActivity implements AdapterView.
     private ArrayAdapter NewDeviceAdapter;
     private BluetoothAdapter mAdapter;
     private ListView pairedDevicesListView, newDevicesListView;
-
-        ArrayAdapter newDeviceAdapter;
+    BluetoothDevice device;
+    ProgressBar progressB;
+    ArrayAdapter newDeviceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_btconnect);
+
+        progressB = findViewById(R.id.BarProgress);
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         newDeviceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
@@ -44,13 +47,15 @@ public class BTConnectActivity extends AppCompatActivity implements AdapterView.
         public void onReceive(Context context, Intent intent) {
             switch(intent.getAction()){
                 case(BluetoothDevice.ACTION_FOUND):
-                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    progressB.setVisibility(View.VISIBLE);
                     newDeviceAdapter.add(device.getName());
                     pairedDevices.add(device);
                     newDeviceAdapter.notifyDataSetChanged();
                     break;
 
                 case(BluetoothAdapter.ACTION_DISCOVERY_FINISHED):
+                    progressB.setVisibility(View.INVISIBLE);
                     if (newDeviceAdapter.getCount()==0) {
                         Toast.makeText(BTConnectActivity.this, "No device found", Toast.LENGTH_SHORT).show();
                         newDeviceAdapter.add("No new device found");
