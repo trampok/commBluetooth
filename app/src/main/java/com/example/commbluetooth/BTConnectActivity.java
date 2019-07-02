@@ -31,13 +31,12 @@ public class BTConnectActivity extends AppCompatActivity implements AdapterView.
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         newDeviceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-        pairedDevicesListView = (ListView) findViewById(R.id.BTList);
-        newDevicesListView=(ListView)findViewById(R.id.BTList);
-
-        //-----------------------------------------------
-        newDeviceAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        pairedDevicesListView = (ListView) findViewById(R.id.BTList_paired);
+        newDevicesListView=(ListView)findViewById(R.id.BTList_paired);
         newDevicesListView.setAdapter(newDeviceAdapter);
         newDeviceAdapter.notifyDataSetChanged();
+
+
     }
 
     BroadcastReceiver bReceive = new BroadcastReceiver( ){
@@ -48,7 +47,7 @@ public class BTConnectActivity extends AppCompatActivity implements AdapterView.
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     newDeviceAdapter.add(device.getName());
                     pairedDevices.add(device);
-                    NewDeviceAdapter.notifyDataSetChanged();
+                    newDeviceAdapter.notifyDataSetChanged();
                     break;
 
                 case(BluetoothAdapter.ACTION_DISCOVERY_FINISHED):

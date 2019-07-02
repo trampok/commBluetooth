@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
             }
-            //onBluetoothConfigRequest(false);
+            onBluetoothConfigRequest(false);
         }
     }
 }
