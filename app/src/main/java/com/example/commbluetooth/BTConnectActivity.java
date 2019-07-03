@@ -84,4 +84,10 @@ public class BTConnectActivity extends AppCompatActivity implements AdapterView.
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         setResult(0, getIntent());
     }
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(bReceive);
+
+        super.onDestroy();
+    }
 }
